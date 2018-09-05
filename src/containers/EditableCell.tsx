@@ -3,7 +3,7 @@ import { CommandManager } from '../servise/CommandManager';
 import { ChangeEmailCommand } from '../servise/Email';
 import { ChangePasswordCommand } from '../servise/Password';
 import { ChangePhoneCommand } from '../servise/Phone';
-import { Form, Icon, Input } from 'antd';
+import { Form, Input } from 'antd';
 import * as React from 'react';
 
 
@@ -65,24 +65,31 @@ export class EditableCell extends React.Component<IProps, IState>{
         if (editing && this.cell !== e.target && !this.cell.contains(e.target)) {
             this.save();
         }
+        e.target.blur();
     }
 
     public save = () => {
         const { record, dataIndex } = this.props;
-        console.log(this.props)
         console.log(this.form)
+        console.log(dataIndex)
         switch (dataIndex) {
             case 'email': {
+                console.log('email')
                 let changeEmailCommand: CommandConfig = new ChangeEmailCommand({ receiver: record, changedValue: this.state.value });
                 manager.execute(changeEmailCommand);
+                break;
             }
             case 'phone': {
+                console.log('phone')
                 let changePhoneCommand: CommandConfig = new ChangePhoneCommand({ receiver: record, changedValue: this.state.value });
                 manager.execute(changePhoneCommand);
+                break;
             }
             case 'password': {
+                console.log('password')
                 let changePasswordCommand: CommandConfig = new ChangePasswordCommand({ receiver: record, changedValue: this.state.value });
                 manager.execute(changePasswordCommand);
+                break;
             }
         }
     }
@@ -127,8 +134,6 @@ export class EditableCell extends React.Component<IProps, IState>{
                                             onClick={this.toggleEdit}
                                         >
                                             {restProps.children}
-                                            <Icon type="redo" theme="outlined" />
-                                            <Icon type="undo" theme="outlined" />
                                         </div>
 
                                     )

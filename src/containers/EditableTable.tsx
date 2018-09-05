@@ -65,12 +65,14 @@ export class EditableTable extends React.Component<{}, IState> {
     }
     public redo() {
         console.log(manager.getExecutedCommandsArray());
+        console.log('redo')
         manager.redo()
         console.log(manager.getExecutedCommandsArray());
     }
     public undo() {
         console.log(manager.getExecutedCommandsArray());
-        manager.undo()
+        console.log('undo')
+        manager.undo();
         console.log(manager.getExecutedCommandsArray());
     }
     public handleDelete = (key) => {
